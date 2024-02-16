@@ -164,6 +164,7 @@ def lm_sm(data: np.ndarray, info: pd.DataFrame, plot_dir:Path=None, boxcox:bool=
     # We need to add some non-digit before column names or patsy has a fit
     d = pd.DataFrame(data, index=info.index, columns=[f'x{x}' for x in range(data.shape[1])])
     df = pd.concat([d, info], axis=1) # Data will be given numberic labels
+    df.iloc[:, 1:-1] = df.iloc[:, 1:-1].astype(float) # convert all but first and last column to float
     for col in range(data.shape[1]):
 
         if not df[f'x{col}'].any():
