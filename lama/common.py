@@ -73,7 +73,11 @@ def date_dhm() -> datetime.datetime:
     -------
 
     """
-    return datetime.datetime.now().replace(second=0, microsecond=0)
+    #Code below fixes ExFat compatibility issue by removing colons from the log filename
+    #Also removes the space just in case
+    modDate = str(datetime.datetime.now().replace(second=0, microsecond=0)).replace(':', '.')
+    modDate = modDate.replace(' ', '_')
+    return modDate
 
 
 class RegistrationException(Exception):
